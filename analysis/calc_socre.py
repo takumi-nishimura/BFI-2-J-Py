@@ -264,3 +264,31 @@ for idx, q_data in df.iterrows():
     print(f"Name: {q_data['name']}")
     print(f"Domain Score: {domain_score_df}")
     print(f"Facet Score: {facet_score_df}")
+
+
+### Visualize by Radar Chart
+from math import pi
+
+import matplotlib.pyplot as plt
+
+angles = [
+    n / float(len(domain_score_df)) * 2 * pi
+    for n in range(len(domain_score_df))
+]
+angles += angles[:1]
+
+ax = plt.subplot(111, polar=True)
+
+ax.set_theta_offset(pi / 2)
+ax.set_theta_direction(-1)
+
+plt.xticks(angles[:-1], domain_score_df["domain_name"], color="black", size=7)
+
+ax.set_rlabel_position(0)
+plt.yticks([1, 2, 3, 4, 5], ["1", "2", "3", "4", "5"], color="gray", size=5)
+plt.ylim(0, 6)
+
+values = domain_score_df.loc[:, "score"].tolist()
+values += values[:1]
+ax.plot(angles, values, linewidth=1, linestyle="solid", label="score")
+plt.show()

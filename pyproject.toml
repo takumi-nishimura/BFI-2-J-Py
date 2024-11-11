@@ -9,3 +9,8 @@ dependencies = [
     "flask-wtf>=1.2.2",
     "pandas>=2.2.3",
 ]
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.9.2",
+]
