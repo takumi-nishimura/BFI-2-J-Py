@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="jp">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% block styles %}
+            {{ bootstrap.load_css() }}
+        {% endblock %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <title>Thank you!</title>
+    </head>
+    <body>
+        {% block content %}
+            <div class="container">
+                <h1 class="text-center mt-5">Thank you {{name}}!</h1>
+                <div class="text-center mb-3" style='margin: 50px auto 0 auto'>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Reset</a>
+                </div>
+            </div>
+        {% endblock %}
+    </body>

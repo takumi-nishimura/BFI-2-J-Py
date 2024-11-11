@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="jp">
+    <head>
+        {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% block styles %}
+            {{ bootstrap.load_css() }}
+        {% endblock %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+        <title>Your page title</title>
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        <div class="container">
+            <h1 class="text-center mt-5">実験アンケート</h1>
+            <form method="POST" style="max-width: 800px; margin: auto;">
+            {{ form.hidden_tag() }}
+
+            <div class='mb-3' style='max-width: 200px'>
+                <label for='expt_id' class='form-label' >実験ID</label>
+                {{ form.expt_id(class='form-control') }}
+            </div>
+
+            <div class="mb-3" style='max-width: 200px'>
+                <label for="name" class="form-label">名前</label>
+                {{form.name(class="form-control")}}
+            </div>
+
+            <div class="mb-3">
+                <label for="gender" class="form-label">{{ form.gender.label }}</label>
+                <div>
+                    {% for subfield in form.gender %}
+                        <div class="form-check form-check-inline">
+                            {{ subfield(class="form-check-input") }}
+                            <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-3" style='max-width: 200px'>
+                <label for="age" class="form-label">{{ form.age.label }}</label>
+                {{ form.age(class="form-control") }}
+            </div>
+
+            <div class='mb-3' style="margin-top: 30px; margin-bottom: 10px;">
+                <h4>以下の項目は，あなたにどの程度あてはまりますか．最も近いと思う数字を選んでください．</h4>
+            </div>
+
+            {% for i in range(1, 61) %}
+                <div class="mb-3">
+                    <label for='q{{ i }}' class='form-label' style='margin-top: 10px'>{{ form['q' + i|string].label }}</label>
+                    <div>
+                        {% for subfield in form['q' ~ i] %}
+                            <div class="form-check form-check-inline">
+                                {{ subfield(class="form-check-input") }}
+                                <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class='mb-3'>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+        {% endblock %}
+
+        {% block scripts %}
+            {{ bootstrap.load_js() }}
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,41 @@
+/* カスタムテーマカラー */
+:root {
+    --bs-primary: hsl(11, 87%, 76%);  /* プライマリカラー（オレンジ系） */
+    --bs-secondary: #6c757d;  /* セカンダリカラー（グレー系） */
+    --bs-success: #28a745;   /* 成功カラー（緑系） */
+    --bs-info: #17a2b8;      /* 情報カラー（青系） */
+    --bs-warning: #ffc107;   /* 警告カラー（黄色系） */
+    --bs-danger: #dc3545;    /* 危険カラー（赤系） */
+    --bs-light: #ffffff;     /* 明るいカラー */
+    --bs-dark: #343a40;      /* ダークカラー */
+}
+
+body {
+    background-color: var(--bs-light);
+    color: var(--bs-dark);
+}
+
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+    background-color: hsl(11, 86%, 73%);
+    border-color:  hsl(11, 86%, 73%);
+}
+
+.btn-primary:active {
+    background-color: hsl(11, 86%, 70%) !important;
+    border-color:  hsl(11, 86%, 70%) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.form-check-input:hover {
+    background-color: var(--bs-light);
+    border-color: var(--bs-primary);
+}
