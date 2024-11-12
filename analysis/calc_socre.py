@@ -269,14 +269,17 @@ if __name__ == "__main__":
         print(domain_score_df)
         print(facet_score_df)
 
-    ### Visualize by Radar Chart
-    radar_chart = RadarChart(
-        labels=domain_score_df["domain_name"], y_range=(0, 5)
-    )
-    radar_chart.plot(
-        values=domain_score_df["score"].tolist(),
-        linewidth=1,
-        linestyle="solid",
-        label="score",
-    )
+        ### Visualize by Radar Chart
+        radar_chart = RadarChart(
+            labels=domain_score_df["domain_name"],
+            y_range=(0, 5),
+            legend=q_data["name"],
+        )
+        radar_chart.plot(
+            values=domain_score_df["score"].tolist(),
+            linewidth=1,
+            linestyle="solid",
+            label="score",
+        )
+    plt.tight_layout(pad=2.5)
     plt.show()

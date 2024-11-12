@@ -4,12 +4,15 @@ import matplotlib.pyplot as plt
 
 
 class RadarChart:
-    def __init__(self, labels: list, y_range: list):
+    legend_list = []
+
+    def __init__(self, labels: list, y_range: list, legend: str = None):
         """_summary_
 
         Args:
             labels (list): Radar chart labels
             y_range (list): Radar chart y range. [min, max]
+            legend (str, optional): Legend for the radar chart. Defaults to None.
         """
 
         self.ax = plt.subplot(111, polar=True)
@@ -32,6 +35,14 @@ class RadarChart:
             size=5,
         )
         plt.ylim((y_range[0], y_range[1] + 1))
+
+        if legend:
+            self.legend_list.append(legend)
+            self.ax.legend(
+                self.legend_list,
+                loc="center right",
+                bbox_to_anchor=(1.4, 0.5),
+            )
 
     def plot(self, values, **kwargs):
         values += values[:1]
