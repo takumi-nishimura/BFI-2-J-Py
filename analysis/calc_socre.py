@@ -1,7 +1,5 @@
 import pandas as pd
 
-df = pd.read_csv("data/result.csv")
-
 domain_df = pd.DataFrame(columns=["domain", "ドメイン", "q_no_list"])
 domain_df["domain"] = [
     "Extraversion",
@@ -257,38 +255,28 @@ def calc_facet_score(q_data: pd.Series):
     return facet_score_df
 
 
-for idx, q_data in df.iterrows():
-    domain_score_df = calc_domain_score(q_data)
-    facet_score_df = calc_facet_score(q_data)
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    from plot_radar import RadarChart
 
-    print(f"Name: {q_data['name']}")
-    print(f"Domain Score: {domain_score_df}")
-    print(f"Facet Score: {facet_score_df}")
+    df = pd.read_csv("data/result.csv")
 
+    for idx, q_data in df.iterrows():
+        domain_score_df = calc_domain_score(q_data)
+        facet_score_df = calc_facet_score(q_data)
 
-### Visualize by Radar Chart
-from math import pi
+        print(f"Name: {q_data['name']}")
+        print(domain_score_df)
+        print(facet_score_df)
 
-import matplotlib.pyplot as plt
-
-angles = [
-    n / float(len(domain_score_df)) * 2 * pi
-    for n in range(len(domain_score_df))
-]
-angles += angles[:1]
-
-ax = plt.subplot(111, polar=True)
-
-ax.set_theta_offset(pi / 2)
-ax.set_theta_direction(-1)
-
-plt.xticks(angles[:-1], domain_score_df["domain_name"], color="black", size=7)
-
-ax.set_rlabel_position(0)
-plt.yticks([1, 2, 3, 4, 5], ["1", "2", "3", "4", "5"], color="gray", size=5)
-plt.ylim(0, 6)
-
-values = domain_score_df.loc[:, "score"].tolist()
-values += values[:1]
-ax.plot(angles, values, linewidth=1, linestyle="solid", label="score")
-plt.show()
+    ### Visualize by Radar Chart
+    radar_chart = RadarChart(
+        labels=domain_score_df["domain_name"], y_range=(0, 5)
+    )
+    radar_chart.plot(
+        values=domain_score_df["score"].tolist(),
+        linewidth=1,
+        linestyle="solid",
+        label="score",
+    )
+    plt.show()
