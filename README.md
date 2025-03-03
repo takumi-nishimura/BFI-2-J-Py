@@ -14,3 +14,4 @@
     uv run app.py
     ```
 2. Open questionnaire page. [http://127.0.0.1:5003](http://127.0.0.1:5003)
+![image](docs/app_view.png)
